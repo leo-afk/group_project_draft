@@ -103,6 +103,57 @@ th#point {
     text-align: center;
 }
 
+.sort-by-date {
+    display: flex;
+    height: 30px;
+    justify-content: flex-end;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.sort-by-date p {
+    margin: 0 50px;
+}
+
+.match-history {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.logo-left,
+.logo-right {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 20px 50px;
+}
+
+.team-left,
+.team-right {
+    width: 20%;
+    margin-top: 58px;
+}
+
+.result {
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 23%;
+    margin-top: 58px;
+}
+
+#prediction {
+    margin-top: -30px;
+    margin-bottom: 20px;
+    display: none;
+    max-height: 120px;
+    align-items: auto;
+}
+
+#prediction div {
+    height: 30px;
+}
+
 hr {
     box-sizing: content-box;
     height: 0;

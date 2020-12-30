@@ -38,30 +38,79 @@
         </div>
     </nav>
 
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Lorem ipsum</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h2>
-                <a class="btn btn-primary js-scroll-trigger" href="#about">Get Started</a>
-            </div>
-        </div>
-    </header>
-    <!-- About-->
+    <!-- Match History-->
     <section class="about-section text-center" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-
-                    <p class="text-white-50">
+                    <p class="text-white">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
                 </div>
             </div>
+            <div class="match-history-container">
+                <div class="sort-by-date">
+                    <p class="text-white">#Venue</p>
+                    <p class="match-date text-white">30/12</p>
+                </div>
+
+                <div class="match-history" onclick="toggle()">
+                    <img class="logo-left" src="assets/img/logo.png" alt="">
+                    <p class="team-left text-white">#Name1</p>
+                    <div class="result">
+                        <p class="result-left text-white">1</p>
+                        <p class="text-white"> - </p>
+                        <p class="result-right text-white">1</p>
+                    </div>
+                    <p class="team-right text-white">#Name2</p>
+                    <img class="logo-right" src="assets/img/logo.png" alt="">
+                </div>
+
+                <div id="prediction">
+                    <div>
+                        <p class="text-white">Win rate: %</p>
+                    </div>
+                    <div>
+                        <p class="text-white">Lose rate: %</p>
+                    </div>
+                    <div>
+                        <p class="text-white">Draw rate: %</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="match-history-container">
+                <div class="sort-by-date">
+                    <p class="text-white">#Venue</p>
+                    <p class="match-date text-white">30/12</p>
+                </div>
+
+                <div class="match-history">
+                    <img class="logo-left" src="assets/img/logo.png" alt="">
+                    <p class="team-left text-white">#Name1</p>
+                    <div class="result">
+                        <p class="result-left text-white">1</p>
+                        <p class="text-white"> - </p>
+                        <p class="result-right text-white">1</p>
+                    </div>
+                    <p class="team-right text-white">#Name2</p>
+                    <img class="logo-right" src="assets/img/logo.png" alt="">
+                </div>
+
+            </div>
+
         </div>
     </section>
-
+    <script>
+        function toggle() {
+            var ele = document.getElementById("prediction");
+            if (ele.style.display == "block") {
+                ele.style.display = "none";
+            } else {
+                ele.style.display = "block";
+            }
+        }
+    </script>
     <!-- Contact-->
     <section class="contact-section bg-black">
         <div class="container">
