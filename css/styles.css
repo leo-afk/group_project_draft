@@ -160,6 +160,50 @@ hr {
     overflow: visible;
 }
 
+
+/* Style the tab */
+
+.tab {
+    overflow: hidden;
+}
+
+
+/* Style the buttons that are used to open the tab content */
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    opacity: 0.5;
+}
+
+
+/* Change background color of buttons on hover */
+
+.tab button:hover {
+    opacity: 1;
+}
+
+
+/* Create an active/current tablink class */
+
+.tab button.active {
+    opacity: 1;
+}
+
+
+/* Style the tab content */
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    padding-bottom: 60px;
+}
+
 h1,
 h2,
 h3,
@@ -10118,6 +10162,11 @@ button.bg-black:focus {
     color: #fff !important;
 }
 
+.text-white-small {
+    color: #fff !important;
+    font-size: 14px;
+}
+
 .text-primary {
     color: #64a19d !important;
 }
@@ -10213,6 +10262,11 @@ a.text-black:focus {
 
 .text-white-50 {
     color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.text-white-50-small {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 14px;
 }
 
 .text-hide {
