@@ -114,12 +114,12 @@
                 </table>
 
                 <div class="tab">
-                    <button class="tablinks text-white-small" onclick="opencity(event, 'home')">#Name1</button>
+                    <button class="tablinks text-white-small active" onclick="opencity(event, 'home')">#Name1</button>
                     <button class="tablinks text-white-small" onclick="opencity(event, 'away')">#Name2</button>
                 </div>
 
                 <!-- Tab content -->
-                <div id="home" class="tabcontent">
+                <div id="home" class="tabcontent" style="display: block;">
                     <table width="80%" style="margin-left: 10%;">
                         <col style="width:13%">
                         <col style="width:13%">
@@ -299,16 +299,6 @@
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(name).style.display = "block";
             evt.currentTarget.className += " active";
-        }
-    </script>
-    <script>
-        function toggle() {
-            var ele = document.getElementById("prediction");
-            if (ele.style.display == "block") {
-                ele.style.display = "none";
-            } else {
-                ele.style.display = "block";
-            }
         }
     </script>
     <!-- Contact-->
