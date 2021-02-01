@@ -21,18 +21,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Bundesliga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">La Liga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Serie A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Premiere League</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">League 1</a></li>
+                    <?php
+                        echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=bundesliga\">Bundesliga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=laliga\">La Liga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=seriea\">Serie A</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=footballbasic\">Premiere League</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=ligue1\">League 1</a></li>"
+                    ?>
                 </ul>
             </div>
         </div>
@@ -110,7 +112,7 @@
                                             <td id=\"point\">".$row['draws']."</td>
                                             <td id=\"point\">".$row['points']."</td>
                                         </tr>";
-                                    }
+                                        }
                                     
                                     }
 

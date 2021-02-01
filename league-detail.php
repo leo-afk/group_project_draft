@@ -21,18 +21,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Bundesliga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">La Liga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Serie A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Premiere League</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">League 1</a></li>
+            <ul class="navbar-nav ml-auto">
+                    <?php
+                        echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=bundesliga\">Bundesliga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=laliga\">La Liga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=seriea\">Serie A</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=footballbasic\">Premiere League</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=ligue1\">League 1</a></li>"
+                    ?>
                 </ul>
             </div>
         </div>
@@ -48,54 +50,44 @@
                     </p>
                 </div>
             </div>
-            <a class="match-history-container" href="overview.html" style="text-decoration: none;">
-                <div class="sort-by-date">
-                    <p class="text-white">#Venue</p>
-                    <p class="match-date text-white">30/12</p>
-                </div>
+            
+            <?php
+                    $league = $_GET["league"];
+                    $conn = mysqli_connect("localhost", "root", "", $league);
+                    if ($conn->connect_error) {
+                        die("Connection failed: ". $conn-> connect_error);
+                    }
+                    $sql = "SELECT fixture_id, home_name, away_name, home_logo, away_logo, home_goals, away_goals, venue_name, date from fixtures WHERE status='Match Finished' ORDER BY date DESC LIMIT 5";
+                    $result = $conn-> query($sql);
+                    $resultCheck = mysqli_num_rows($result);
+                    
+                    if ($resultCheck > 0){
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo "<a class=\"match-history-container\" href=\"overview.php?fixture=".$row['fixture_id']."&league=".$league."\" style=\"text-decoration: none;\">
+                            <div class=\"sort-by-date\">
+                                <p class=\"text-white\">".$row["venue_name"]."</p>
+                                <p class=\"match-date text-white\">".$row['date']."</p>
+                            </div>
+                
+                            <div class=\"match-history\">
+                                <img class=\"logo-left\" src=\"".$row['home_logo']."\" alt=\"\">
+                                <p class=\"team-left text-white\">".$row['home_name']."</p>
+                                <div class=\"result\">
+                                    <p class=\"result-left text-white\">".$row['home_goals']."</p>
+                                    <p class=\"text-white\"> - </p>
+                                    <p class=\"result-right text-white\">".$row['away_goals']."</p>
+                                </div>
+                                <p class=\"team-right text-white\">".$row['away_name']."</p>
+                                <img class=\"logo-right\" src=\"".$row['away_logo']."\" alt=\"\">
+                            </div></a>";
+                        }
+                    }
+                    
+                ?>
 
-                <div class="match-history">
-                    <img class="logo-left" src="assets/img/logo.png" alt="">
-                    <p class="team-left text-white">#Name1</p>
-                    <div class="result">
-                        <p class="result-left text-white">1</p>
-                        <p class="text-white"> - </p>
-                        <p class="result-right text-white">1</p>
-                    </div>
-                    <p class="team-right text-white">#Name2</p>
-                    <img class="logo-right" src="assets/img/logo.png" alt="">
-                </div>
+           
 
-            </a>
-
-            <div class="match-history-container">
-                <div class="sort-by-date">
-                    <p class="text-white">#Venue</p>
-                    <p class="match-date text-white">30/12</p>
-                </div>
-
-                <div class="match-history" onclick="toggle()">
-                    <img class="logo-left" src="assets/img/logo.png" alt="">
-                    <p class="team-left text-white">#Name1</p>
-                    <div class="prediction">
-                        <table>
-                            <tr>
-                                <th class="text-white">Home</th>
-                                <th class="text-white">Draw</th>
-                                <th class="text-white">Away</th>
-                            </tr>
-                            <tr>
-                                <td class="text-white" id="home-rate">%</td>
-                                <td class="text-white" id="draw-rate">%</td>
-                                <td class="text-white" id="away-rate">%</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <p class="team-right text-white">#Name2</p>
-                    <img class="logo-right" src="assets/img/logo.png" alt="">
-                </div>
-
-            </div>
+           
 
 
         </div>
