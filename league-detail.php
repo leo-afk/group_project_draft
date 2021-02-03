@@ -53,7 +53,7 @@
             
             <?php
                     $league = $_GET["league"];
-                    $conn = mysqli_connect("localhost", "root", "", $league);
+                    $conn = mysqli_connect("localhost", "root", "password", $league);
                     if ($conn->connect_error) {
                         die("Connection failed: ". $conn-> connect_error);
                     }

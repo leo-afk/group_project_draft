@@ -91,7 +91,7 @@
                             <tbody>
                             
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "bundesliga");
+                                    $conn = mysqli_connect("localhost", "root", "password", "bundesliga");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
@@ -148,7 +148,7 @@
                             </thead>
                             <tbody>
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "laliga");
+                                    $conn = mysqli_connect("localhost", "root", "password", "laliga");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
@@ -211,7 +211,7 @@
                             </thead>
                             <tbody>
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "seriea");
+                                    $conn = mysqli_connect("localhost", "root", "password", "seriea");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
@@ -267,7 +267,7 @@
                             </thead>
                             <tbody>
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "footballbasic");
+                                    $conn = mysqli_connect("localhost", "root", "password", "footballbasic");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
@@ -331,7 +331,7 @@
                             </thead>
                             <tbody>
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "ligue1");
+                                    $conn = mysqli_connect("localhost", "root", "password", "ligue1");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
