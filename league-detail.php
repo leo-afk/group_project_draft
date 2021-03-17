@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Football Prediction Site</title>
+    <title>USTH Football</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">USTH Football</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -45,9 +45,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <p class="text-white">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
+                    <?php
+                        $league = $_GET["league"];
+                        if ($league == "footballbasic"){
+                            echo "<p class=\"text-white\">
+                            The Premier League, often referred to outside the UK as the English Premier League, or sometimes the EPL, (legal name: The Football Association Premier League Limited) is the top level of the English football league system.
+                    </p>";
+        
+                        }
+                        elseif ($league == "laliga"){
+                            echo "<p class=\"text-white\">The Campeonato Nacional de Liga de Primera División, commonly known simply as La Liga and officially as LaLiga Santander for sponsorship reasons, stylized as LaLiga, is the men's top professional football division of the Spanish football league system.</p>";
+                        }
+
+                        elseif ($league == "seriea"){
+                            echo "<p class=\"text-white\">Serie A (Italian pronunciation: [ˈsɛːrje ˈa]), also called Serie A TIM due to sponsorship by TIM, is a professional league competition for football clubs located at the top of the Italian football league system and the winner is awarded the Scudetto and the Coppa Campioni d'Italia.</p>";
+                        }
+
+                        elseif ($league == "bundesliga"){
+                            echo "<p class=\"text-white\">The Bundesliga (German: [ˈbʊndəsˌliːɡa] lit. 'Federal League'), sometimes referred to as the Fußball-Bundesliga ([ˌfuːsbal-]) or Bundesliga, is a professional association football league in Germany.</p>";
+                        }
+
+                        else {
+                            echo "<p class=\"text-white\">Ligue 1, officially known as Ligue 1 Uber Eats for sponsorship reasons, is a French professional league for men's association football clubs.</p>";
+                        }
+                    ?>
                 </div>
             </div>
             
@@ -193,7 +214,7 @@
                             <i class="fas fa-envelope text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Email</h4>
                             <hr class="my-4" />
-                            <div class="small text-black-50"><a href="#!">abc@gmail.com</a></div>
+                            <div class="small text-black-50"><a href="#!">kienlt.bi9131@st.usth.edu.vn</a></div>
                         </div>
                     </div>
                 </div>
@@ -203,15 +224,15 @@
                             <i class="fas fa-mobile-alt text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Phone</h4>
                             <hr class="my-4" />
-                            <div class="small text-black-50">+84 123456789</div>
+                            <div class="small text-black-50">+84 3823 1241</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="social d-flex justify-content-center">
-                <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                <a class="mx-2" href="https://twitter.com/KapitanKien"><i class="fab fa-twitter"></i></a>
+                <a class="mx-2" href="https://www.facebook.com/lethuckien/"><i class="fab fa-facebook-f"></i></a>
+                <a class="mx-2" href="https://github.com/nhatanhnguyenbui/group_project_draft"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </section>

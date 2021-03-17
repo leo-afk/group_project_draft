@@ -10801,4 +10801,80 @@ body {
 
 .footer {
     padding: 5rem 0;
+
+
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+}
+
+.slide_1 {
+    width: 100%;
+    height: 100%;
+    background-image: url(https://img.fifa.com/image/upload/t_l2/v1615475430/te79hmy42jit4yox9jcv.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    opacity: 0;
+}
+
+.slide_2 {
+    width: 100%;
+    height: 100%;
+    background-image: url(https://c4.wallpaperflare.com/wallpaper/125/634/576/mane-liverpool-fc-firmino-mohamed-salah-wallpaper-preview.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    opacity: 0;
+}
+
+.slide_3 {
+    width: 100%;
+    height: 100%;
+    background-image: url(http://static.thethaovietnam.vn/medias/standard/2021/2/22/Man-Utd-3-1-Newcastle1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    opacity: 0;
+}
+
+.wraper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.nut {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
+
+.nut ul li {
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    display: inline-block;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.nut ul li:hover {
+    background-color: white;
+}
+
+.ra {
+    transition: 2.5s;
+    transition-duration: 4s;
+    opacity: 1;
 }
