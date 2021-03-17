@@ -107,12 +107,13 @@ th#point {
     display: flex;
     height: 30px;
     justify-content: flex-end;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .sort-by-date p {
     margin: 0 30px;
+    text-align: left;
 }
 
 .match-history {
@@ -127,7 +128,7 @@ th#point {
 }
 
 .predict-container {
-  
+  margin-bottom: 5%;
 }
 
 .match-history-container {
@@ -146,10 +147,17 @@ th#point {
     margin: 10px 10px;
 }
 
-.logo-left-2,
-.logo-right-2 {
+.logo-club-detail {
     max-width: 100px;
     max-height: 100px;
+    border-radius: 50%;
+    margin: 10px 10px;
+}
+
+.logo-left-2,
+.logo-right-2 {
+    max-width: 75px;
+    max-height: 75px;
     border-radius: 50%;
     margin: 20px 70px;
 }
@@ -267,7 +275,7 @@ hr {
 
 #name {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 17px;
     margin-left: 10px;
 }
 
@@ -277,6 +285,7 @@ hr {
 
 .stats-table {
     position: relative;
+    padding: 10px;
     -webkit-animation-name: animatebottom;
     -webkit-animation-duration: 0.6s;
     animation-name: animatebottom;
@@ -331,14 +340,19 @@ hr {
 
 .venue-info {
     width: 40%;
-    padding-top: 26%;
+    padding-top: 10%;
+    padding-left: 20%;
     text-align: left;
     align-items: initial;
+    float: inline-start;
 }
 
 #map {
-    width: 60%;
-    padding-top: 40%;
+    width: 50%;
+    height: 50%;
+    float: inline-end;
+    padding-top: 30%;
+    background-size: cover;
 }
 
 

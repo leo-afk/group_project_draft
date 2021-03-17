@@ -21,18 +21,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Bundesliga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">La Liga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Serie A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Premiere League</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">League 1</a></li>
+            <ul class="navbar-nav ml-auto">
+                    <?php
+                        echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=bundesliga\">Bundesliga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=laliga\">La Liga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=seriea\">Serie A</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=footballbasic\">Premiere League</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=ligue1\">League 1</a></li>"
+                    ?>
                 </ul>
             </div>
         </div>
@@ -41,82 +43,94 @@
     <section class="about-section text-center" id="about">
         <div class="container">
             <div class="match-container">
-                <div class="sort-by-date">
-                    <p class="text-white">#Venue</p>
-                    <p class="match-date text-white">30/12</p>
-                </div>
+                <?php
+                    $fixture = $_GET['fixture'];
+                    $league = $_GET['league'];
 
-                <div class="match-history-2">
-                    <a href="club-detail.html">
-                        <img class="logo-left-2" src="assets/img/logo.png" alt="">
-                    </a>
-                    <p class="team-left-2 text-white">#Name1</p>
-                    <div class="result-2">
-                        <p class="result-left text-white">1</p>
-                        <p class="text-white"> - </p>
-                        <p class="result-right text-white">1</p>
-                    </div>
-                    <p class="team-right-2 text-white">#Name2</p>
-                    <a href="club-detail.html">
-                        <img class="logo-right-2" src="assets/img/logo.png" alt="">
-                    </a>
-                </div>
-                <br>
-                <table width="50%" class="align-items-center" style="margin-left: 25%;">
-                    <col style="width:25%">
-                    <col style="width:50%">
-                    <col style="width:25%">
-                    <thead style="border: 1px solid white">
-                        <tr>
-                            <th class="text-white" colspan="3">GAME STATISTICS</th>
-                        </tr>
-                    </thead>
-                    <tbody style="border: 1px solid white">
+                    $conn = mysqli_connect("localhost", "root", "password", $league);
+                    if ($conn->connect_error) {
+                        die("Connection failed: ". $conn-> connect_error);
+                    }
+                    $sql = "SELECT venue_name, date,home_id,away_id, home_logo, away_logo, home_name, away_name, home_goals, away_goals from fixtures WHERE fixture_id=$fixture";
+                    $result = $conn-> query($sql);
+                    $resultCheck = mysqli_num_rows($result);
+                    if ($resultCheck > 0){
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo "<div class=\"sort-by-date\">
+                            <p class=\"text-white\">".$row['venue_name']."</p>
+                            <p class=\"match-date text-white\">".$row['date']."</p>
+                        </div>
 
-                        <tr>
-                            <td class="text-white-small">84.5%</td>
-                            <td class="text-white-50-small">SHOT ACCURACY</td>
-                            <td class="text-white-small">74.6%</td>
-                        </tr>
+                        <div class=\"match-history-2\">
+                            <img class=\"logo-left-2\" src=\"".$row['home_logo']."\" alt=\"\">
+                            <a class=\"team-left text-white\" href=\"club-detail.php?teamid=".$row["home_id"]."&league=".$league."\">".$row['home_name']."</a>
+                            <div class=\"result\">
+                                <p class=\"result-left text-white\">".$row['home_goals']."</p>
+                                <p class=\"text-white\"> - </p>
+                                <p class=\"result-right text-white\">".$row['away_goals']."</p>
+                            </div>
+                            <a class=\"team-right text-white\" href=\"club-detail.php?teamid=".$row["away_id"]."&league=".$league."\">".$row['away_name']."</a>
+                            <img class=\"logo-right-2\" src=\"".$row['away_logo']."\" alt=\"\">
+                        </div>
+                        <br>
+                        <table width=\"50%\" class=\"align-items-center\" style=\"margin-left: 25%;\">
+                            <col style=\"width:25%\">
+                            <col style=\"width:50%\">
+                            <col style=\"width:25%\">
+                            <thead style=\"border: 1px solid white\">
+                                <tr>
+                                    <th class=\"text-white\" colspan=\"3\">GAME STATISTICS</th>
+                                </tr>
+                            </thead>
+                            <tbody style=\"border: 1px solid white\">
 
-                        <tr>
-                            <td class="text-white-small">84.5%</td>
-                            <td class="text-white-50-small">PASS ACCURACY</td>
-                            <td class="text-white-small">74.6%</td>
-                        </tr>
+                                <tr>
+                                    <td class=\"text-white-small\">84.5%</td>
+                                    <td class=\"text-white-50-small\">SHOT ACCURACY</td>
+                                    <td class=\"text-white-small\">74.6%</td>
+                                </tr>
 
-                        <tr>
-                            <td class="text-white-small">25(14)</td>
-                            <td class="text-white-50-small">SHOTS(ON GOAL)</td>
-                            <td class="text-white-small">16(6)</td>
-                        </tr>
+                                <tr>
+                                    <td class=\"text-white-small\">84.5%</td>
+                                    <td class=\"text-white-50-small\">PASS ACCURACY</td>
+                                    <td class=\"text-white-small\">74.6%</td>
+                                </tr>
 
-                        <tr>
-                            <td class="text-white-small">9</td>
-                            <td class="text-white-50-small">CORNER KICKS</td>
-                            <td class="text-white-small">7</td>
-                        </tr>
+                                <tr>
+                                    <td class=\"text-white-small\">25(14)</td>
+                                    <td class=\"text-white-50-small\">SHOTS(ON GOAL)</td>
+                                    <td class=\"text-white-small\">16(6)</td>
+                                </tr>
 
-                        <tr>
-                            <td class="text-white-small">8</td>
-                            <td class="text-white-50-small">SAVES</td>
-                            <td class="text-white-small">5</td>
-                        </tr>
+                                <tr>
+                                    <td class=\"text-white-small\">9</td>
+                                    <td class=\"text-white-50-small\">CORNER KICKS</td>
+                                    <td class=\"text-white-small\">7</td>
+                                </tr>
 
-                        <tr>
-                            <td class="text-white-small">0</td>
-                            <td class="text-white-50-small">YELLOW CARDS</td>
-                            <td class="text-white-small">2</td>
-                        </tr>
+                                <tr>
+                                    <td class=\"text-white-small\">8</td>
+                                    <td class=\"text-white-50-small\">SAVES</td>
+                                    <td class=\"text-white-small\">5</td>
+                                </tr>
 
-                        <tr>
-                            <td class="text-white-small">1</td>
-                            <td class="text-white-50-small">RED CARDS</td>
-                            <td class="text-white-small">0</td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td class=\"text-white-small\">0</td>
+                                    <td class=\"text-white-50-small\">YELLOW CARDS</td>
+                                    <td class=\"text-white-small\">2</td>
+                                </tr>
 
+                                <tr>
+                                    <td class=\"text-white-small\">1</td>
+                                    <td class=\"text-white-50-small\">RED CARDS</td>
+                                    <td class=\"text-white-small\">0</td>
+                                </tr>
+                            </tbody>
+                        </table>";
+                    }
+                    }
+
+                ?>
                 <div class="tab">
                     <button class="tablinks text-white-small active" onclick="opencity(event, 'home')">#Name1</button>
                     <button class="tablinks text-white-small" onclick="opencity(event, 'away')">#Name2</button>
@@ -347,8 +361,8 @@
             </div>
         </div>
     </section>
+    <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
-        
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -23,18 +23,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Bundesliga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">La Liga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Serie A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Premiere League</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">League 1</a></li>
+                    <?php
+                        echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=bundesliga\">Bundesliga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=laliga\">La Liga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=seriea\">Serie A</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=footballbasic\">Premiere League</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=ligue1\">League 1</a></li>"
+                    ?>
                 </ul>
             </div>
         </div>
@@ -43,8 +45,24 @@
     <section class="about-section text-center" id="about">
         <div class="container">
             <div>
-                <img class="logo-left" src="assets/img/logo.png" alt="">
-                <div id="club-name" class="text-white" style="font-size: 27px;">Manchester United</div>
+                <?php
+                    $league = $_GET["league"];
+                    $conn = mysqli_connect("localhost", "root", "password", $league);
+                    if ($conn->connect_error) {
+                        die("Connection failed: ". $conn-> connect_error);
+                    }
+                    $teamid = $_GET["teamid"];
+                    $sql = "SELECT name, logo FROM teams WHERE id=$teamid";
+                    $result = $conn-> query($sql);
+                    $resultCheck = mysqli_num_rows($result);
+                    if ($resultCheck > 0){
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo "<img class=\"logo-club-detail\" src=\"".$row['logo']."\" alt=\"\">
+                    <div id=\"club-name\" class=\"text-white\" style=\"font-size: 27px;\">".$row["name"]."</div>";
+                        }
+                    }
+                    
+                ?>
             </div>
             <div class="tab" style="width: 100%;">
                 <button class="tablinks js-scroll-trigger text-white active " onclick="opentab(event, 'overview')" href="#overview">Overview</button>
@@ -55,8 +73,36 @@
             </div>
 
 
-            <div id="overview" class="tabcontent stats-table" style="display: block;">
-
+            <div id="overview" class="tabcontent stats-table" style="display: block">
+                    <?php
+                        $league = $_GET["league"];
+                        $conn = mysqli_connect("localhost", "root", "password", $league);
+                        if ($conn->connect_error) {
+                            die("Connection failed: ". $conn-> connect_error);
+                        }
+                        $teamid = $_GET["teamid"];
+                        $sql = "SELECT form FROM team_stats_form WHERE team_id=$teamid";
+                        $result = $conn-> query($sql);
+                        $resultCheck = mysqli_num_rows($result);
+                        echo "<p class=\"text-white\" style=\"margin-left: auto;margin-right: auto\">Team recent form: ";
+                        if ($resultCheck > 0){
+                            while ($row = mysqli_fetch_assoc($result)){
+                                $array = str_split($row["form"]);
+                                foreach($array as $form) {
+                                    if ($form == "L"){
+                                        echo "<span style=\"color:red;font-weight:bold;\">".$form."</span>";
+                                    }
+                                    elseif ($form == "W"){
+                                        echo "<span style=\"color:green;font-weight:bold;\">".$form."</span>";
+                                    }
+                                    else {
+                                        echo "<span style=\"color:grey;font-weight:bold;\">".$form."</span>";
+                                    }
+                                }
+                            }
+                        }
+                        echo "</p>";
+                    ?>
             </div>
 
             <div id="squad" class="tabcontent stats-table">
@@ -71,16 +117,15 @@
                         <img src="assets/img/player.png" alt="">
                     </div>
                 </div>
-
                 <div id="player">
                     <div id="player-container">
                         <div id="nbr">1</div>
                         <div id="name">Leno</div>
                         <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
+                        <img src="assets/img/nation.png" alt="">
                     </div>
                     <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
+                        <img src="assets/img/player.png" alt="">
                     </div>
                 </div>
                 <div id="player">
@@ -88,153 +133,10 @@
                         <div id="nbr">1</div>
                         <div id="name">Leno</div>
                         <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
+                        <img src="assets/img/nation.png" alt="">
                     </div>
                     <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
-                    </div>
-                </div>
-                <div id="player">
-                    <div id="player-container">
-                        <div id="nbr">1</div>
-                        <div id="name">Leno</div>
-                        <div id="pos">Goalkeeper</div>
-                        <img src="/assets/img/nation.png" alt="">
-                    </div>
-                    <div id="player-image">
-                        <img src="/assets/img/player.png" alt="">
+                        <img src="assets/img/player.png" alt="">
                     </div>
                 </div>
             </div>
@@ -421,21 +323,40 @@
 
             <div id="stadium" class="tabcontent stats-table">
                 <div class="venue-info">
-                    <div id="venue-name" class="text-white">
-                        Name: Emirates Stadium
-                    </div>
-                    <div id="venue-capacity" class="text-white">
-                        Capacity: 60000
-                    </div>
-                    <div id="venue-surface" class="text-white">
-                        Surface: 1000m2
-                    </div>
-                </div>
-                <div id="map">
-
-                </div>
+                   <?php
+                    $league = $_GET["league"];
+                    $conn = mysqli_connect("localhost", "root", "password", $league);
+                    if ($conn->connect_error) {
+                        die("Connection failed: ". $conn-> connect_error);
+                    }
+                    $teamid = $_GET["teamid"];
+                    $sql = "SELECT venue_name,venue_image, venue_capacity, venue_surface from teams WHERE id=$teamid";
+                    $result = $conn-> query($sql);
+                    $resultCheck = mysqli_num_rows($result);
+                    if ($resultCheck > 0){
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo "<div id=\"venue-name\" class=\"text-white\">
+                     Name: ".$row["venue_name"]."
+                 </div>
+                 <div id=\"venue-capacity\" class=\"text-white\">
+                     Capacity: ".$row["venue_capacity"]."
+                 </div>
+                 <div id=\"venue-surface\" class=\"text-white\">
+                     Surface: ".$row["venue_surface"]."
+                 </div>
+                 </div>
+                 <div id=\"map\" style=\"background-image: url('".$row["venue_image"]."')\">
+                 
+                </div>";
+                        }
+                    }
+                     
+                    
+                   ?>
+                
+                
             </div>
-            <script>
+            <!-- <script>
                 // Initialize and add the map
                 function initMap() {
                     // The location of Uluru
@@ -454,7 +375,7 @@
                         map: map,
                     });
                 }
-            </script>
+            </script> -->
 
 
 

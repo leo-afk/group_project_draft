@@ -21,18 +21,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">FootballPrediction</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">FootballPrediction</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Bundesliga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">La Liga</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Serie A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">Premiere League</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="league-detail.html">League 1</a></li>
+                    <?php
+                        echo "<li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=bundesliga\">Bundesliga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=laliga\">La Liga</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=seriea\">Serie A</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=footballbasic\">Premiere League</a></li>
+                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"league-detail.php?league=ligue1\">League 1</a></li>"
+                    ?>
                 </ul>
             </div>
         </div>
@@ -65,10 +67,24 @@
     <section class="projects-section bg-light" id="cl">
         <div class="container">
             <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/1900x1188.jpg" alt="" />
+                <div class="col-xl-6 col-lg-7" style="text-align: center; display: block;">
+                <?php
+                 $conn = mysqli_connect("localhost", "root", "password", "bundesliga");
+                 if ($conn->connect_error) {
+                     die("Connection failed: ". $conn-> connect_error);
+                 }
+                 $sql = "SELECT logo from league";
+                 $result = $conn-> query($sql);
+                 $resultCheck = mysqli_num_rows($result);
+
+                 if ($resultCheck > 0){
+                     while ($row = mysqli_fetch_assoc($result)){
+                         echo "<img class=\"img-fluid mb-3 mb-lg-0\" src=\"".$row["logo"]."\" alt=\"\" />";
+                     }
+                    }
+                ?>
                 </div>
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-5">
                     <div class="featured-text-left text-center text-lg-left">
                         <h2>Bundesliga 2020</h2>
                         <table width="100%">
@@ -88,65 +104,34 @@
                             </thead>
                             <tbody>
                             
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>01</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-                               
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>02</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                            <?php
+                                    $conn = mysqli_connect("localhost", "root", "password", "bundesliga");
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: ". $conn-> connect_error);
+                                    }
+                                    $sql = "SELECT rank,team_id, logo, team_name, wins, loses, draws, points from standings LIMIT 5";
+                                    $result = $conn-> query($sql);
+                                    $resultCheck = mysqli_num_rows($result);
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>03</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                                    if ($resultCheck > 0){
+                                        while ($row = mysqli_fetch_assoc($result)){
+                                            echo "<tr>
+                                            <td id=\"team-checkboard\">
+                                                <p>"."0".$row['rank']."</p>
+                                                <img src=\"".$row['logo']."\" alt=\"\" style=\"width: 30px; height: 30px;\">
+                                                <a style=\"padding-left:8px;\" href=\"club-detail.php?teamid=".$row["team_id"]."&league=bundesliga\">".$row['team_name']."</a>
+                                            </td>
+                                            <td id=\"point\">".$row['wins']."</div></td>
+                                            <td id=\"point\">".$row['loses']."</td>
+                                            <td id=\"point\">".$row['draws']."</td>
+                                            <td id=\"point\">".$row['points']."</td>
+                                        </tr>";
+                                        }
+                                    
+                                    }
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>04</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>05</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                                    
+                                ?>
 
 
                             </tbody>
@@ -157,7 +142,7 @@
             </div>
 
             <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-5">
                     <div class="featured-text-right text-center text-lg-right">
                         <h2>La Liga 2020</h2>
                         <table width="100%">
@@ -176,65 +161,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>01</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                            <?php
+                                    $conn = mysqli_connect("localhost", "root", "password", "laliga");
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: ". $conn-> connect_error);
+                                    }
+                                    $sql = "SELECT rank,team_id, logo, team_name, wins, loses, draws, points from standings LIMIT 5";
+                                    $result = $conn-> query($sql);
+                                    $resultCheck = mysqli_num_rows($result);
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>02</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                                    if ($resultCheck > 0){
+                                        while ($row = mysqli_fetch_assoc($result)){
+                                            echo "<tr>
+                                            <td id=\"team-checkboard\">
+                                                <p>"."0".$row['rank']."</p>
+                                                <img src=\"".$row['logo']."\" alt=\"\" style=\"width: 30px; height: 30px;\">
+                                                <a style=\"padding-left:8px;\" href=\"club-detail.php?teamid=".$row["team_id"]."&league=laliga\">".$row['team_name']."</a>
+                                            </td>
+                                            <td id=\"point\">".$row['wins']."</div></td>
+                                            <td id=\"point\">".$row['loses']."</td>
+                                            <td id=\"point\">".$row['draws']."</td>
+                                            <td id=\"point\">".$row['points']."</td>
+                                        </tr>";
+                                    }
+                                    
+                                    }
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>03</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>04</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>05</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                                    
+                                ?>
 
 
                             </tbody>
@@ -242,16 +196,44 @@
 
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/1900x1188.jpg" alt="" />
+                <div class="col-xl-6 col-lg-7" style="text-align: center; display: block;">
+                <?php
+                 $conn = mysqli_connect("localhost", "root", "password", "laliga");
+                 if ($conn->connect_error) {
+                     die("Connection failed: ". $conn-> connect_error);
+                 }
+                 $sql = "SELECT logo from league";
+                 $result = $conn-> query($sql);
+                 $resultCheck = mysqli_num_rows($result);
+
+                 if ($resultCheck > 0){
+                     while ($row = mysqli_fetch_assoc($result)){
+                         echo "<img class=\"img-fluid mb-3 mb-lg-0\" src=\"".$row["logo"]."\" alt=\"\" />";
+                     }
+                    }
+                ?>
                 </div>
             </div>
 
             <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/1900x1188.jpg" alt="" />
+                <div class="col-xl-6 col-lg-7" style="text-align: center; display: block;">
+                <?php
+                 $conn = mysqli_connect("localhost", "root", "password", "seriea");
+                 if ($conn->connect_error) {
+                     die("Connection failed: ". $conn-> connect_error);
+                 }
+                 $sql = "SELECT logo from league";
+                 $result = $conn-> query($sql);
+                 $resultCheck = mysqli_num_rows($result);
+
+                 if ($resultCheck > 0){
+                     while ($row = mysqli_fetch_assoc($result)){
+                         echo "<img class=\"img-fluid mb-3 mb-lg-0\" src=\"".$row["logo"]."\" alt=\"\" />";
+                     }
+                    }
+                ?>
                 </div>
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-5">
                     <div class="featured-text-left text-center text-lg-left">
                         <h2>Serie A 2020</h2>
                         <table width="100%">
@@ -270,65 +252,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>01</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                            <?php
+                                    $conn = mysqli_connect("localhost", "root", "password", "seriea");
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: ". $conn-> connect_error);
+                                    }
+                                    $sql = "SELECT rank,team_id ,logo, team_name, wins, loses, draws, points from standings LIMIT 5";
+                                    $result = $conn-> query($sql);
+                                    $resultCheck = mysqli_num_rows($result);
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>02</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>03</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>04</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>05</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                                    if ($resultCheck > 0){
+                                        while ($row = mysqli_fetch_assoc($result)){
+                                            echo "<tr>
+                                            <td id=\"team-checkboard\">
+                                                <p>"."0".$row['rank']."</p>
+                                                <img src=\"".$row['logo']."\" alt=\"\" style=\"width: 30px; height: 30px;\">
+                                                <a style=\"padding-left:8px;\" href=\"club-detail.php?teamid=".$row["team_id"]."&league=seriea\">".$row['team_name']."</a>
+                                            </td>
+                                            <td id=\"point\">".$row['wins']."</div></td>
+                                            <td id=\"point\">".$row['loses']."</td>
+                                            <td id=\"point\">".$row['draws']."</td>
+                                            <td id=\"point\">".$row['points']."</td>
+                                        </tr>";
+                                    }
+                                    
+                                    }
+                                    
+                                ?>
 
 
                             </tbody>
@@ -339,7 +289,7 @@
             </div>
 
             <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-5">
                     <div class="featured-text-right text-center text-lg-right">
                     <h2>Premiere League 2020</h2>
                         <table width="100%">
@@ -359,11 +309,11 @@
                             </thead>
                             <tbody>
                             <?php
-                                    $conn = mysqli_connect("localhost", "root", "", "footballbasic");
+                                    $conn = mysqli_connect("localhost", "root", "password", "footballbasic");
                                     if ($conn->connect_error) {
                                         die("Connection failed: ". $conn-> connect_error);
                                     }
-                                    $sql = "SELECT rank, logo, team_name, wins, loses, draws, points from standings LIMIT 5";
+                                    $sql = "SELECT rank, team_id,logo, team_name, wins, loses, draws, points from standings LIMIT 5";
                                     $result = $conn-> query($sql);
                                     $resultCheck = mysqli_num_rows($result);
 
@@ -373,7 +323,7 @@
                                             <td id=\"team-checkboard\">
                                                 <p>"."0".$row['rank']."</p>
                                                 <img src=\"".$row['logo']."\" alt=\"\" style=\"width: 30px; height: 30px;\">
-                                                <p>".$row['team_name']."</p>
+                                                <a style=\"padding-left:8px;\" href=\"club-detail.php?teamid=".$row["team_id"]."&league=footballbasic\">".$row['team_name']."</a>
                                             </td>
                                             <td id=\"point\">".$row['wins']."</div></td>
                                             <td id=\"point\">".$row['loses']."</td>
@@ -394,18 +344,46 @@
 
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/1900x1188.jpg" alt="" />
+                <div class="col-xl-6 col-lg-7" style="text-align: center; display: block;">
+                <?php
+                 $conn = mysqli_connect("localhost", "root", "password", "footballbasic");
+                 if ($conn->connect_error) {
+                     die("Connection failed: ". $conn-> connect_error);
+                 }
+                 $sql = "SELECT logo from league";
+                 $result = $conn-> query($sql);
+                 $resultCheck = mysqli_num_rows($result);
+
+                 if ($resultCheck > 0){
+                     while ($row = mysqli_fetch_assoc($result)){
+                         echo "<img class=\"img-fluid mb-3 mb-lg-0\" src=\"".$row["logo"]."\" alt=\"\" />";
+                     }
+                    }
+                ?>
                 </div>
             </div>
 
             <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/1900x1188.jpg" alt="" />
+                <div class="col-xl-6 col-lg-7" style="text-align: center; display: block;">
+                <?php
+                 $conn = mysqli_connect("localhost", "root", "password", "ligue1");
+                 if ($conn->connect_error) {
+                     die("Connection failed: ". $conn-> connect_error);
+                 }
+                 $sql = "SELECT logo from league";
+                 $result = $conn-> query($sql);
+                 $resultCheck = mysqli_num_rows($result);
+
+                 if ($resultCheck > 0){
+                     while ($row = mysqli_fetch_assoc($result)){
+                         echo "<img class=\"img-fluid mb-3 mb-lg-0\" src=\"".$row["logo"]."\" alt=\"\" />";
+                     }
+                    }
+                ?>
                 </div>
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-6 col-lg-5">
                     <div class="featured-text-left text-center text-lg-left">
-                        <h2>League 1 2020</h2>
+                        <h2>Ligue 1 2020</h2>
                         <table width="100%">
                             <col style="width:50%">
                             <col style="width:12.5%">
@@ -422,67 +400,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>01</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
+                            <?php
+                                    $conn = mysqli_connect("localhost", "root", "password", "ligue1");
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: ". $conn-> connect_error);
+                                    }
+                                    $sql = "SELECT rank, logo,team_id, team_name, wins, loses, draws, points from standings LIMIT 5";
+                                    $result = $conn-> query($sql);
+                                    $resultCheck = mysqli_num_rows($result);
+                                    if ($resultCheck > 0){
+                                        while ($row = mysqli_fetch_assoc($result)){
+                                            echo "<tr>
+                                            <td id=\"team-checkboard\">
+                                                <p>"."0".$row['rank']."</p>
+                                                <img src=\"".$row['logo']."\" alt=\"\" style=\"width: 30px; height: 30px;\">
+                                                <a style=\"padding-left:8px;\" href=\"club-detail.php?teamid=".$row["team_id"]."&league=ligue1\">".$row['team_name']."</a>
+                                            </td>
+                                            <td id=\"point\">".$row['wins']."</div></td>
+                                            <td id=\"point\">".$row['loses']."</td>
+                                            <td id=\"point\">".$row['draws']."</td>
+                                            <td id=\"point\">".$row['points']."</td>
+                                        </tr>";
+                                    }
+                                    
+                                    }
 
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>02</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>03</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>04</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="team-checkboard">
-                                        <p>05</p>
-                                        <img src="assets/img/logo.png" alt="" style="width: 30px; height: 30px;">
-                                        <p>#Name</p>
-                                    </td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                    <td id="point">1</td>
-                                </tr>
-
-
+                                    
+                                ?>
                             </tbody>
                         </table>
 
@@ -535,7 +479,7 @@
     </section>
     <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
-        <div class="container">Copyright © Your Website 2020</div>
+      
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
